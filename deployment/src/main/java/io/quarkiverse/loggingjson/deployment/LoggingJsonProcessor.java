@@ -20,6 +20,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LogConsoleFormatBuildItem;
 import io.quarkus.deployment.builditem.LogFileFormatBuildItem;
+import io.quarkus.deployment.builditem.LogSocketFormatBuildItem;
 
 class LoggingJsonProcessor {
 
@@ -46,9 +47,9 @@ class LoggingJsonProcessor {
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    LogFileFormatBuildItem setUpSocketFormatter(Capabilities capabilities, LoggingJsonRecorder recorder,
+    LogSocketFormatBuildItem setUpSocketFormatter(Capabilities capabilities, LoggingJsonRecorder recorder,
             Config config) {
-        return new LogFileFormatBuildItem(recorder.initializeSocketJsonLogging(config, jsonFactory(capabilities)));
+        return new LogSocketFormatBuildItem(recorder.initializeSocketJsonLogging(config, jsonFactory(capabilities)));
     }
 
     private JsonFactory jsonFactory(Capabilities capabilities) {
