@@ -44,6 +44,13 @@ class LoggingJsonProcessor {
         return new LogFileFormatBuildItem(recorder.initializeFileJsonLogging(config, jsonFactory(capabilities)));
     }
 
+    @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
+    LogFileFormatBuildItem setUpSocketFormatter(Capabilities capabilities, LoggingJsonRecorder recorder,
+            Config config) {
+        return new LogFileFormatBuildItem(recorder.initializeSocketJsonLogging(config, jsonFactory(capabilities)));
+    }
+
     private JsonFactory jsonFactory(Capabilities capabilities) {
         if (capabilities.isPresent(Capability.JACKSON)) {
             return new JacksonJsonFactory();
